@@ -18,16 +18,13 @@ Here are some screenshots of webpages created using the project:
 
    ![Screenshot 1](screenshots/e-web-profile.png)
 
-   Description of the screenshot or context.
 
 2. **Blog**
 
    ![Screenshot 2](screenshots/e-web-blog.png)
 
-   Description of the screenshot or context.
 
 3. **Hotel**
 
    ![Screenshot 3](screenshots/e-web-hotel.png)
 
-   Description of the screenshot or context.
