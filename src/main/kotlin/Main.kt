@@ -1,6 +1,5 @@
-
-fun main(args: Array<String>) {
- hotel()
- article()
- profile()
-}
+ fun main(args: Array<String>){
+     hotel()
+     article()
+     profile()
+ }
