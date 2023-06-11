@@ -9,7 +9,7 @@ The E-WEB project is a collection of reusable CSS classes and HTML components de
 - **Inline Styling:** In addition to the predefined CSS classes, the project provides inline styling functions that allow developers to apply custom styles directly within the HTML tags. This provides greater flexibility in styling individual elements or overriding default styles.
 - **Responsive Design:** The CSS Components project follows best practices for responsive design, ensuring that the components adapt well to different screen sizes and devices. It includes CSS classes and media queries that enable developers to create mobile-friendly and responsive layouts.
 - **Easy Integration:** The project is designed to be easily integrated into existing web projects. Developers can simply include the project files, apply the desired CSS classes or inline styles, and use the HTML components as needed. No complex setup or configuration is required.
-- 
+
 ## Code comparison
 
 Here we can see E-WEB uses less code to achieve the same result as standard html and css:
