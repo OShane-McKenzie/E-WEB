@@ -1,5 +1,8 @@
 import java.io.File
 enum class Components(val value: String) {
+    MAIN_OPEN("<main>"),
+    MAIN_CLOSE("</main>"),
+    MAIN_INLINE_OPEN("<main "),
     DIV_OPEN("<div>"),
     DIV_CLOSE("</div>"),
     DOCTYPE("<!DOCTYPE html>"),
@@ -40,10 +43,17 @@ enum class Components(val value: String) {
     BODY_CLOSE("</body>"),
     NAV_OPEN("<nav>"),
     NAV_CLOSE("</nav>"),
+    PRE_INLINE_OPEN("<pre "),
+    PRE_CLOSE("</pre>"),
+    PRE_OPEN("<pre>"),
+    CODE_INLINE_OPEN("<code "),
+    CODE_CLOSE("</code>"),
+    CODE_OPEN("<code>"),
     SECTION_OPEN("<section>"),
     SECTION_CLOSE("</section>"),
     SCRIPT_OPEN("<script>"),
     SCRIPT_CLOSE("</script>"),
+    SCRIPT_INLINE_OPEN("<script "),
     ARTICLE_OPEN("<article>"),
     ARTICLE_CLOSE("</article>"),
     FOOTER_OPEN("<footer>"),
@@ -149,6 +159,7 @@ const val OUTLINE_COLOR = "outline-color"
 const val OUTLINE_STYLE = "outline-style"
 const val OUTLINE_WIDTH = "outline-width"
 const val OVERFLOW = "overflow"
+const val OBJECT_FIT = "object-fit"
 const val PADDING = "padding"
 const val PADDING_BOTTOM = "padding-bottom"
 const val PADDING_LEFT = "padding-left"
@@ -251,6 +262,9 @@ fun Doctype(): String {
 fun HtmlOpen(): String {
     return Components.HTML_OPEN.value
 }
+fun HtmlClose(): String {
+    return Components.HTML_CLOSE.value
+}
 fun TitleOpen(): String {
     return Components.TITLE_OPEN.value
 }
@@ -341,44 +355,75 @@ fun Article(contents: String): String {
 fun Footer(contents: String): String {
     return Components.FOOTER_OPEN.value + contents + Components.FOOTER_CLOSE.value
 }
-fun MetaOpen(): String {
+fun Meta(): String {
     return Components.META_OPEN.value
 }
-fun I_Open(): String {
+fun I(): String {
     return Components.I_OPEN.value
 }
-fun I_Close(): String {
+fun IClose(): String {
     return Components.I_CLOSE.value
 }
-fun A_Open(): String {
+fun A(): String {
     return Components.A_OPEN.value
 }
-fun A_Close(): String {
+fun AClose(): String {
     return Components.A_CLOSE.value
 }
-fun Script_Open(): String {
+fun Script(): String {
     return Components.SCRIPT_OPEN.value
 }
-fun Script_Close(): String {
+fun ScriptClose(): String {
     return Components.SCRIPT_CLOSE.value
 }
-fun Label_Open(): String {
+fun LabelOpen(): String {
     return Components.LABEL_OPEN.value
 }
-fun Form_Open(): String {
+fun Form(): String {
     return Components.FORM_OPEN.value
 }
-fun Form_Close(): String {
+fun FormClose(): String {
     return Components.FORM_CLOSE.value
 }
-fun Input_Open(): String {
+fun Input(): String {
     return Components.INPUT_OPEN.value
 }
-fun Label_Close(): String {
+fun LabelClose(): String {
     return Components.LABEL_CLOSE.value
 }
-fun Input_Close(): String {
+fun InputClose(): String {
     return Components.INPUT_CLOSE.value
+}
+fun Main():String{
+    return Components.MAIN_OPEN.value
+}
+fun MainClose():String{
+    return Components.MAIN_CLOSE.value
+}
+fun MainInline(contents: String, styles: String = ""):String{
+    return "${Components.MAIN_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.MAIN_CLOSE.value}"
+}
+fun Pre():String{
+    return Components.PRE_OPEN.value
+}
+fun PreClose():String{
+    return Components.PRE_CLOSE.value
+}
+fun Code():String{
+    return Components.CODE_OPEN.value
+}
+fun CodeClose():String{
+    return Components.CODE_CLOSE.value
+}
+
+fun PreInline(contents: String, styles: String = ""):String{
+    return "${Components.PRE_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.PRE_CLOSE.value}"
+}
+fun CodeInline(contents: String, styles: String = "",attributes:String=""):String{
+    return "${Components.CODE_INLINE_OPEN.value}$styles $attributes${Components.INLINE_CLOSURE.value}$contents${Components.CODE_CLOSE.value}"
+}
+fun ScriptInline(contents: String):String{
+    return "${Components.SCRIPT_INLINE_OPEN.value}$contents${Components.INLINE_CLOSURE.value}${Components.SCRIPT_CLOSE.value}"
 }
 fun LabelInline(contents: String, styles: String = ""):String{
     return "${Components.LABEL_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.LABEL_CLOSE.value}"
@@ -386,8 +431,8 @@ fun LabelInline(contents: String, styles: String = ""):String{
 fun SpanInline(contents: String, styles: String = ""):String{
     return "${Components.SPAN_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.SPAN_CLOSE.value}"
 }
-fun DivInline(contents: String, styles: String = ""): String {
-    return "${Components.DIV_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.DIV_CLOSE.value}"
+fun DivInline(contents: String, styles: String = "",attributes:String=""): String {
+    return "${Components.DIV_INLINE_OPEN.value}$styles $attributes${Components.INLINE_CLOSURE.value}$contents${Components.DIV_CLOSE.value}"
 }
 fun HeaderInline(contents: String, styles: String = ""): String {
     return "${Components.HEADER_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.HEADER_CLOSE.value}"
@@ -413,8 +458,8 @@ fun PInline(contents: String, styles: String = ""): String {
 fun AInline(styles: String = "", href: String, text: String): String {
     return "${Components.A_INLINE_OPEN.value}$styles href=\"$href\">$text${Components.A_CLOSE.value}"
 }
-fun ImgInline(styles: String = "", src: String, alt: String): String {
-    return "${Components.IMG_INLINE_OPEN.value}$styles src=\"$src\" alt=\"$alt\"${Components.IMG_CLOSE.value}"
+fun ImgInline(contents: String,styles: String = ""): String {
+    return "${Components.IMG_INLINE_OPEN.value}$styles $contents ${Components.IMG_CLOSE.value}"
 }
 fun UlInline(contents: String, styles: String = ""): String {
     return "${Components.UL_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.UL_CLOSE.value}"
@@ -448,6 +493,9 @@ fun FooterInline(contents: String, styles: String = ""): String {
 }
 fun HtmlInline(styles: String, contents: String): String {
     return "${Components.HTML_INLINE_OPEN.value}$styles${Components.INLINE_CLOSURE.value}$contents${Components.HTML_CLOSE.value}"
+}
+fun HtmlInlineSemi(attributes: String): String {
+    return "${Components.HTML_INLINE_OPEN.value}$attributes${Components.INLINE_CLOSURE.value}"
 }
 fun MetaInline(attributes: String): String {
     return "${Components.META_INLINE_OPEN.value}$attributes${Components.INLINE_CLOSURE.value}"
@@ -488,7 +536,7 @@ fun saveHTML(data: String, filePath: String) {
 fun siteBuilder(siteStructure:List<Any>):String{
     val site = buildString {
         for (i in siteStructure){
-            append(i)
+            append((i as String))
         }
     }
     return site
@@ -506,3 +554,4 @@ fun String.lt(lines: Int = 0, tabs: Int = 0): String {
     val tabsString = "\t".repeat(tabs)
     return "$tabsString$this$lineBreaks"
 }
+

@@ -2,4 +2,5 @@
      hotel()
      article()
      profile()
+     profileTwo()
  }
